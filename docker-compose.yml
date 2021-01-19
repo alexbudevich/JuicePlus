@@ -1,0 +1,23 @@
+version: '3.7'
+services:
+  cart-service:
+    build: .
+    ports:
+      - 8080:8080
+    networks:
+      - juiceplus
+
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=root
+    ports:
+      - 5431:5431
+      - 5432:5432
+    networks:
+      - juiceplus
+
+networks:
+  juiceplus:
+    driver: bridge
+
