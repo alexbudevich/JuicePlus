@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 
 @Component
@@ -50,6 +51,7 @@ public class CartService {
         return cart;
     }
 
+    @Transactional
     public Cart removeItem(Long userId, Item entity) {
         Cart cart = get(userId);
         CartItem cartItem = cart.getItems().stream()
@@ -57,12 +59,8 @@ public class CartService {
                 .findFirst()
                 .orElse(new CartItem());
         cartItem.setCount(cartItem.getCount() - 1);
-        if (cartItem.getCount() > 0) {
-            cart = cartRepository.save(cart);
-        } else {
+        if (cartItem.getCount() <= 0) {
             cart.getItems().remove(cartItem);
-            cartRepository.save(cart);
-            cardItemRepository.delete(cartItem);
         }
         cart.setTotalCartPrice(getTotalPrice(cart));
         return cart;
