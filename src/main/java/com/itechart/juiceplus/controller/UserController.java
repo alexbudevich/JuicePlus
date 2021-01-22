@@ -35,6 +35,7 @@ public class UserController {
 
     @PostMapping
     public UserDto create(@RequestBody UserDto userDto) {
+        log.debug("Create user: {}", userDto);
         User user = userMapper.mapToEntity(userDto);
         return userMapper.mapToDto(userService.create(user));
     }

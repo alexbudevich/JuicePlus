@@ -27,12 +27,13 @@ public class ItemController {
 
     @GetMapping("/{id}")
     public ItemDto get(@PathVariable("id") Long id){
-        log.debug("Get user: {}", id);
+        log.debug("Get item: {}", id);
         return itemMapper.mapToDto(itemService.get(id));
     }
 
     @PostMapping
     public ItemDto create(@RequestBody ItemDto itemDto) {
+        log.debug("Create item: {}", itemDto);
         Item product = itemMapper.mapToEntity(itemDto);
         return itemMapper.mapToDto(itemService.create(product));
     }

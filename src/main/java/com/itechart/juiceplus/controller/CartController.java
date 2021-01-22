@@ -43,14 +43,14 @@ public class CartController {
 
     @PostMapping("addItem")
     public CartDto addItem(@RequestHeader("user-id") Long userId, @RequestBody ItemDto itemDto) {
-        log.debug("Add item id: {} for user id: {}", userId, itemDto.getId());
+        log.debug("Add item to cart for user id: {} for user id: {}", userId, itemDto.getId());
         Cart updatedCart = cartService.addItem(userId, itemMapper.mapToEntity(itemDto));
         return cartMapper.mapToDto(updatedCart);
     }
 
     @PostMapping("removeItem")
     public CartDto removeItem(@RequestHeader("user-id") Long userId, @RequestBody ItemDto itemDto) {
-        log.debug("Remove item id: {} for user id: {}", userId, itemDto.getId());
+        log.debug("Remove item from cart for user id: {} for user id: {}", userId, itemDto.getId());
         Cart updatedCart = cartService.removeItem(userId, itemMapper.mapToEntity(itemDto));
         return cartMapper.mapToDto(updatedCart);
     }
