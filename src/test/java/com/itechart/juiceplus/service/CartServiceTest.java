@@ -57,4 +57,9 @@ public class CartServiceTest {
         assertNotNull(cart);
         assertEquals(new BigDecimal(3), cart.getTotalCartPrice());
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetCart_expectedIllegalArgumentException() {
+        cartService.get(2L);
+    }
 }
