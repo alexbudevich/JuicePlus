@@ -3,21 +3,21 @@ services:
   cart-service:
     build: .
     ports:
-      - 8080:8080
+      - "8080:8080"
     networks:
-      - juiceplus
+      - juices
 
   postgres:
     image: postgres
     environment:
       - POSTGRES_PASSWORD=root
     ports:
-      - 5431:5431
-      - 5432:5432
+      - "5431:5431"
+      - "5432:5432"
     networks:
-      - juiceplus
+      - juices
 
 networks:
-  juiceplus:
+  juices:
     driver: bridge
 

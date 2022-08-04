@@ -5,23 +5,22 @@ import com.itechart.juiceplus.entity.CartItem;
 import com.itechart.juiceplus.entity.Item;
 import com.itechart.juiceplus.repository.CardItemRepository;
 import com.itechart.juiceplus.repository.CartRepository;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @MockBean({
         UserService.class,
         CardItemRepository.class
@@ -35,7 +34,7 @@ public class CartServiceTest {
     @SpyBean
     CartService cartService;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         Item item = new Item();
         item.setPrice(new BigDecimal(1));
@@ -52,14 +51,10 @@ public class CartServiceTest {
     }
 
     @Test
-    public void testGetCart_totalCartPrice() {
+    void testGetCart_totalCartPrice() {
         Cart cart = cartService.get(userId);
-        assertNotNull(cart);
-        assertEquals(new BigDecimal(3), cart.getTotalCartPrice());
+        Assertions.assertNotNull(cart);
+        Assertions.assertEquals(new BigDecimal(3), cart.getTotalCartPrice());
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testGetCart_expectedIllegalArgumentException() {
-        cartService.get(2L);
-    }
 }
