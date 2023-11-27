@@ -1,0 +1,20 @@
+name: My Workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Inspect directory before
+      run: ls -ls
+      
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.inputs.branch }}
+        
+    - name: Inspect directory after
+      run: ls -ls
