@@ -4,20 +4,20 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  Test:
     runs-on: ubuntu-latest
 
     steps:
     - name: Inspect directory before
       run: ls -ls
-
-    - name: Git status
-      run: git status
       
     - name: Checkout Repository
       uses: actions/checkout@v2
       with:
         ref: ${{ github.event.inputs.branch }}
+        
+    - name: Git status
+      run: git status
         
     - name: Inspect directory after
       run: ls -ls
